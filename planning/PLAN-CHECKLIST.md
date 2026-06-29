@@ -37,10 +37,10 @@
 - [x] Every override records `{field, from, to, reason, evidence}`
 
 ## Phase 4 — Client-side validation (mirror AMS schema, RESEARCH §7)
-- [ ] `validate.ts`: required/non-empty strings; `dba` string|null; address object
-- [ ] `state` in 50+DC USPS set; `zip` `^\d{5}$` string; `effectiveDate` regex; LOB enum
-- [ ] `annualRevenue` number **or** explicit `null` (must be present, not omitted)
-- [ ] `contactEmail` regex; invalid+unfixable → `failed`/`needs_review` (skip submit)
+- [x] `validate.ts`: required/non-empty strings; `dba` string|null; address object
+- [x] `state` in 50+DC USPS set; `zip` `^\d{5}$` string; `effectiveDate` regex; LOB enum
+- [x] `annualRevenue` number **or** explicit `null` (must be present, not omitted)
+- [x] `contactEmail` regex; invalid+unfixable → `failed`/`needs_review` (skip submit)
 
 ## Phase 5 — Resilient submission (core)
 - [ ] `amsClient.ts`: build canonical body once; stable `Idempotency-Key` per email
