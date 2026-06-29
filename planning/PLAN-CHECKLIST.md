@@ -13,11 +13,11 @@
 - [x] `.gitignore` (node_modules, run-report.json optional) — repo hygiene
 
 ## Phase 1 — HTTP foundations
-- [ ] Base URL constant `http://localhost:8472`
-- [ ] `extractClient.ts`: `POST /api/v1/extract` `{email}` → `output` string
-- [ ] Shared fetch helper with `AbortSignal.timeout` + error classification
+- [x] Base URL constant `http://localhost:8472`
+- [x] `extractClient.ts`: `POST /api/v1/extract` `{email}` → `output` string
+- [x] Shared fetch helper with `AbortSignal.timeout` + error classification
       (TimeoutError/AbortError vs HTTP status vs network)
-- [ ] `canonical.ts`: recursive key-sorted JSON stringify (byte-stable body)
+- [x] `canonical.ts`: recursive key-sorted JSON stringify (byte-stable body)
 
 ## Phase 2 — Parse & normalize (mechanical correctness)
 - [ ] `parse.ts`: extract first balanced `{…}` JSON from prose/markdown fence;
