@@ -30,11 +30,11 @@
   - [x] `zip` → 5-digit **string**
 
 ## Phase 3 — Grounding vs source email (the real test)
-- [ ] `ground.ts`: "unsupported value" signal phrase list (tbd, hasn't locked, once…confirms, deciding between, don't have)
-- [ ] **E2**: revenue asserted but email says TBD → force `annualRevenue: null` (+log override)
-- [ ] **E3**: detect PO-box instruction, parse `PO Box …` address → override `mailingAddress` (+log override + evidence); fallback `needs_review` if parse fails
-- [ ] **E4**: effectiveDate asserted but email says undecided → **flag/hold, do not submit** (`needs_review`)
-- [ ] Every override records `{field, from, to, reason, evidence}`
+- [x] `ground.ts`: "unsupported value" signal phrase list (tbd, hasn't locked, once…confirms, deciding between, don't have)
+- [x] **E2**: revenue asserted but email says TBD → force `annualRevenue: null` (+log override)
+- [x] **E3**: detect PO-box instruction, parse `PO Box …` address → override `mailingAddress` (+log override + evidence); fallback `needs_review` if parse fails
+- [x] **E4**: effectiveDate asserted but email says undecided → **flag/hold, do not submit** (`needs_review`)
+- [x] Every override records `{field, from, to, reason, evidence}`
 
 ## Phase 4 — Client-side validation (mirror AMS schema, RESEARCH §7)
 - [ ] `validate.ts`: required/non-empty strings; `dba` string|null; address object
