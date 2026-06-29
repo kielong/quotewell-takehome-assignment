@@ -20,14 +20,14 @@
 - [x] `canonical.ts`: recursive key-sorted JSON stringify (byte-stable body)
 
 ## Phase 2 — Parse & normalize (mechanical correctness)
-- [ ] `parse.ts`: extract first balanced `{…}` JSON from prose/markdown fence;
+- [x] `parse.ts`: extract first balanced `{…}` JSON from prose/markdown fence;
       handle bare JSON; return `null`/error on refusal string
-- [ ] `normalize.ts`:
-  - [ ] `state` → 2-letter USPS (`Tex.` → `TX`; full names + abbrevs map)
-  - [ ] `lineOfBusiness` → enum (lowercase, spaces/hyphens → `_`)
-  - [ ] `effectiveDate` → `YYYY-MM-DD` (`MM/DD/YYYY`, `M/D/YY`; 2-digit year → 20YY)
-  - [ ] `annualRevenue` currency string → number (`$4.2M`→4200000, K/M/B, commas)
-  - [ ] `zip` → 5-digit **string**
+- [x] `normalize.ts`:
+  - [x] `state` → 2-letter USPS (`Tex.` → `TX`; full names + abbrevs map)
+  - [x] `lineOfBusiness` → enum (lowercase, spaces/hyphens → `_`)
+  - [x] `effectiveDate` → `YYYY-MM-DD` (`MM/DD/YYYY`, `M/D/YY`; 2-digit year → 20YY)
+  - [x] `annualRevenue` currency string → number (`$4.2M`→4200000, K/M/B, commas)
+  - [x] `zip` → 5-digit **string**
 
 ## Phase 3 — Grounding vs source email (the real test)
 - [ ] `ground.ts`: "unsupported value" signal phrase list (tbd, hasn't locked, once…confirms, deciding between, don't have)
