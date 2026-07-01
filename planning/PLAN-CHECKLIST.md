@@ -73,9 +73,8 @@
 - [x] Reconciliation PASS
 
 ## Phase 8 — Deliverables
-- [ ] One-line run command verified (`npm start`)
-- [ ] `NOTES.md`: what cut, what to do with more time, "3 vs 4 emails" note, grounding limits, things not to ship as-is
-- [ ] (Optional, if time) light unit tests for `normalize`/`parse`
+- [x] One-line run command verified (`npm start`) — fresh stub → 3 confirmed + 1 needs_review, reconciliation PASS; second run (no restart) keeps count at 3 (no dups)
+- [x] `NOTES.md`: how-to-run, what cut, what to do with more time, "3 vs 4 emails" note, grounding limits, things not to ship as-is
 - [x] Loom talking points noted: confident decision (E2 → null), unsure decision (E4 hold vs placeholder)
 
 ---

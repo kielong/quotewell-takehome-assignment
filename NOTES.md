@@ -1,10 +1,21 @@
 # NOTES
 
 What I'd do with more time, what I deliberately traded off, and what I would
-**not** ship as-is. This is a living doc; sections fill in as phases land.
-Currently complete: Phases 0–6 (scaffold, HTTP foundations, parse/normalize,
-source grounding, client-side validation, resilient submission, and
-orchestration/report/reconciliation).
+**not** ship as-is.
+
+## How to run
+
+```bash
+node stub/server.js   # terminal 1: AMS + extraction stub on :8472 (do not modify)
+npm start             # terminal 2: run the pipeline (≙ npx tsx src/pipeline.ts)
+```
+
+`npm start` processes every `inbox/email_*.txt` in filename order, prints a
+summary table + per-email corrections/flags, writes the machine-readable
+`run-report.json`, and ends with a reconciliation PASS/FAIL line. No runtime
+dependencies (Node 18+ native `fetch`/`crypto`/`AbortSignal`); `tsx` +
+`typescript` are the only devDeps. Against a freshly-restarted stub the expected
+result is **3 confirmed + 1 needs_review, 0 duplicates, reconciliation PASS**.
 
 ---
 
@@ -104,10 +115,13 @@ Two choices worth calling out:
   → `null`, which is itself a valid `annualRevenue`. But it means a "validated"
   record could in principle serialize to a body that differs from what was
   validated; a hardened validator would reject non-finite numbers explicitly.
-- **`validate.ts` is a building block, not yet wired.** It returns
-  `{ ok, errors }` with field-level reasons (exactly what the verdict report
-  needs), but the mapping of "invalid + unfixable → `failed`/`needs_review`,
-  skip submit" lives in the pipeline (Phase 6) and isn't built yet.
+- **Validation short-circuits submission by design.** `validate.ts` returns
+  `{ ok, errors }` with field-level reasons; the pipeline runs it *after*
+  normalize/ground and *before* submit, so an invalid-and-unfixable record is
+  reported as `needs_review`/`failed` with those reasons and never wastes an AMS
+  attempt. On the four fixtures every submitted body validates locally, so the
+  server's 422 path never fires — which is the intended outcome, not an untested
+  branch.
 
 ## Submission & reconciliation (Phases 5–6)
 
