@@ -164,6 +164,25 @@ known limitation, not a deviation.)
 - **`run-report.json` is non-deterministic by one field.** `generatedAt` is a
   wall-clock timestamp, so byte-diffing reports across runs is noisy. Intentional
   for a report artifact; I'd drop or freeze it if reports were ever diffed in CI.
+- **Attempt counts in the report depend on stub state, not just the record.** The
+  committed `run-report.json` is captured from a **freshly-restarted** stub, where
+  every body must draw its guaranteed persist-then-`503` before a `201` — so the
+  attempt counts are `email_1=4, email_2=4, email_3=2`. A *second* run without
+  restarting the stub shows lower counts (e.g. `1/3/1`), because the records are
+  already persisted and the stable key + body short-circuit straight to a
+  confirmable `201`. Both are correct and both reconcile at count `3`; the number
+  just isn't a fixed property of a record.
+- **Mechanical normalizations aren't in `corrections[]` — only grounding overrides
+  are.** `corrections[]` records where I overrode the *model* against the *source
+  email* (E2 revenue→`null`, E3 address→PO box). E1's mechanical reformats
+  (`Tex.`→`TX`, `general liability`→`general_liability`, `07/01/2026`→`2026-07-01`,
+  `$4.2M`→`4200000`, prose/fence stripping) are deliberately **not** logged as
+  corrections — they're format coercions, not judgment calls against the source, so
+  a clean E1 shows an empty `corrections[]`. The evidence that normalization worked
+  is the confirmed record itself (verifiable via `GET /records/:id`). If richer
+  observability were wanted, I'd emit a separate `normalizations[]`/audit trail
+  rather than conflating the two; I kept them distinct because "we changed the
+  model's claim" and "we reformatted a value" are different trust stories.
 
 ---
 

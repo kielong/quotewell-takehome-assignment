@@ -64,13 +64,13 @@
 - [x] Reconcile: `GET /api/v1/records` → `count == #confirmed`, no duplicate recordIds, no duplicate logical records **(dedup by canonical body — key isn't stored on the record)**; also recovers any 503-F persist never confirmed via `201` → PASS/FAIL line
 
 ## Phase 7 — Verify the run (acceptance)
-- [ ] Restart stub, `npm start` → expected: 3 confirmed + 1 needs_review, 0 dups
-- [ ] E1 confirmed (Tex→TX, LOB, date, $4.2M, prose/fence stripped)
-- [ ] E2 confirmed with `annualRevenue: null`
-- [ ] E3 confirmed with PO Box 1142, Bend, OR 97709
-- [ ] E4 `needs_review: effectiveDate not stated in source` (not submitted)
-- [ ] **Run twice without restart → record count unchanged (no duplicates)**
-- [ ] Reconciliation PASS
+- [x] Restart stub, `npm start` → expected: 3 confirmed + 1 needs_review, 0 dups
+- [x] E1 confirmed (Tex→TX, LOB, date, $4.2M, prose/fence stripped)
+- [x] E2 confirmed with `annualRevenue: null`
+- [x] E3 confirmed with PO Box 1142, Bend, OR 97709
+- [x] E4 `needs_review: effectiveDate not stated in source` (not submitted)
+- [x] **Run twice without restart → record count unchanged (no duplicates)**
+- [x] Reconciliation PASS
 
 ## Phase 8 — Deliverables
 - [ ] One-line run command verified (`npm start`)
