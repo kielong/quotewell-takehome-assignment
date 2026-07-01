@@ -43,25 +43,25 @@
 - [x] `contactEmail` regex; invalid+unfixable → `failed`/`needs_review` (skip submit)
 
 ## Phase 5 — Resilient submission (core)
-- [ ] `amsClient.ts`: build canonical body once; stable `Idempotency-Key` per email
-- [ ] Per-attempt `AbortSignal.timeout(~4s)` to escape 30s hang
-- [ ] Response classification:
-  - [ ] `201` + plausible string `recordId` → verify
-  - [ ] `200` → trust only with plausible string `recordId` + GET confirm; otherwise **retry** (transient — never success/failure)
-  - [ ] `429` → honor `Retry-After` (sec) + jitter, retry
-  - [ ] `503`/timeout/abort → backoff + full jitter (no Retry-After), retry. **No GET-by-id here** (503-F returns no recordId); recovered via keyed retry → `201` + end-of-run list match
-  - [ ] `422` → stop + flag (non-retryable)
-  - [ ] `400` → stop + flag (non-retryable)
-- [ ] Backoff: `random(0, min(5s, base·2^n))`; honor Retry-After when present
-- [ ] Bounds: `maxAttempts ≈ 10–12` + wall-clock budget (every outcome consumes an attempt; need 2 success-branch hits per record); on exhaustion → **`GET /api/v1/records` list + match by canonical body** before declaring `failed` (recovers a 503-F persist)
-- [ ] **GET `/records/:id` confirm** on every id-bearing success (`201` / plausible-id `200`); existence = truth
-- [ ] (Defensive) stored-vs-sent field diff (won't fire on this stub)
+- [x] `amsClient.ts`: build canonical body once; stable `Idempotency-Key` per email
+- [x] Per-attempt `AbortSignal.timeout(~4s)` to escape 30s hang
+- [x] Response classification:
+  - [x] `201` + plausible string `recordId` → verify
+  - [x] `200` → trust only with plausible string `recordId` + GET confirm; otherwise **retry** (transient — never success/failure)
+  - [x] `429` → honor `Retry-After` (sec) + jitter, retry
+  - [x] `503`/timeout/abort → backoff + full jitter (no Retry-After), retry. **No GET-by-id here** (503-F returns no recordId); recovered via keyed retry → `201` + end-of-run list match
+  - [x] `422` → stop + flag (non-retryable)
+  - [x] `400` → stop + flag (non-retryable)
+- [x] Backoff: `random(0, min(5s, base·2^n))`; honor Retry-After when present
+- [x] Bounds: `maxAttempts ≈ 10–12` + wall-clock budget (every outcome consumes an attempt; need 2 success-branch hits per record); on exhaustion → **`GET /api/v1/records` list + match by canonical body** before declaring `failed` (recovers a 503-F persist)
+- [x] **GET `/records/:id` confirm** on every id-bearing success (`201` / plausible-id `200`); existence = truth
+- [x] (Defensive) stored-vs-sent field diff (won't fire on this stub)
 
 ## Phase 6 — Orchestration, report, reconciliation
-- [ ] `pipeline.ts`: loop emails sorted by filename → per-email verdict object
-- [ ] `report.ts`: write `run-report.json` (machine) + console summary table
-- [ ] Verdict fields: `email, status, recordId, attempts, lastHttpStatus, corrections, flags`
-- [ ] Reconcile: `GET /api/v1/records` → `count == #confirmed`, no duplicate recordIds, no duplicate logical records **(dedup by canonical body — key isn't stored on the record)**; also recovers any 503-F persist never confirmed via `201` → PASS/FAIL line
+- [x] `pipeline.ts`: loop emails sorted by filename → per-email verdict object
+- [x] `report.ts`: write `run-report.json` (machine) + console summary table
+- [x] Verdict fields: `email, status, recordId, attempts, lastHttpStatus, corrections, flags`
+- [x] Reconcile: `GET /api/v1/records` → `count == #confirmed`, no duplicate recordIds, no duplicate logical records **(dedup by canonical body — key isn't stored on the record)**; also recovers any 503-F persist never confirmed via `201` → PASS/FAIL line
 
 ## Phase 7 — Verify the run (acceptance)
 - [ ] Restart stub, `npm start` → expected: 3 confirmed + 1 needs_review, 0 dups
@@ -76,7 +76,7 @@
 - [ ] One-line run command verified (`npm start`)
 - [ ] `NOTES.md`: what cut, what to do with more time, "3 vs 4 emails" note, grounding limits, things not to ship as-is
 - [ ] (Optional, if time) light unit tests for `normalize`/`parse`
-- [ ] Loom talking points noted: confident decision (E2 → null), unsure decision (E4 hold vs placeholder)
+- [x] Loom talking points noted: confident decision (E2 → null), unsure decision (E4 hold vs placeholder)
 
 ---
 
